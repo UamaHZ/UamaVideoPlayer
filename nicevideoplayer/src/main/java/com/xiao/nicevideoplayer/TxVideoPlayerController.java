@@ -285,6 +285,8 @@ public class TxVideoPlayerController
             case NiceVideoPlayer.MODE_TINY_WINDOW:
                 mBack.setVisibility(View.VISIBLE);
                 mClarity.setVisibility(View.GONE);
+                mFullScreen.setImageResource(R.drawable.ic_player_enlarge);
+                mFullScreen.setVisibility(View.VISIBLE);
                 break;
         }
     }

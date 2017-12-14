@@ -91,6 +91,10 @@ public class NiceVideoPlayer extends FrameLayout
     private int mPlayerType = TYPE_IJK;
     private int mCurrentState = STATE_IDLE;
     private int mCurrentMode = MODE_NORMAL;
+    /**
+     * 全屏前的一个模式状态
+     **/
+    public int mPreMode = MODE_NORMAL;
 
     private Context mContext;
     private AudioManager mAudioManager;
@@ -559,7 +563,7 @@ public class NiceVideoPlayer extends FrameLayout
         // 隐藏ActionBar、状态栏，并横屏
         NiceUtil.hideActionBar(mContext);
         NiceUtil.scanForActivity(mContext)
-                .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         ViewGroup contentView = (ViewGroup) NiceUtil.scanForActivity(mContext)
                 .findViewById(android.R.id.content);
@@ -572,7 +576,8 @@ public class NiceVideoPlayer extends FrameLayout
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         contentView.addView(mContainer, params);
-
+    
+        mPreMode = mCurrentMode;
         mCurrentMode = MODE_FULL_SCREEN;
         mController.onPlayModeChanged(mCurrentMode);
         LogUtil.d("MODE_FULL_SCREEN");
@@ -587,7 +592,7 @@ public class NiceVideoPlayer extends FrameLayout
      */
     @Override
     public boolean exitFullScreen() {
-        if (mCurrentMode == MODE_FULL_SCREEN) {
+        if (mCurrentMode == MODE_FULL_SCREEN && mPreMode == MODE_NORMAL) {
             NiceUtil.showActionBar(mContext);
             NiceUtil.scanForActivity(mContext)
                     .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -599,10 +604,28 @@ public class NiceVideoPlayer extends FrameLayout
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
             this.addView(mContainer, params);
-
+    
+            mPreMode = MODE_NORMAL;
             mCurrentMode = MODE_NORMAL;
             mController.onPlayModeChanged(mCurrentMode);
             LogUtil.d("MODE_NORMAL");
+            return true;
+        } else if (mCurrentMode == MODE_FULL_SCREEN && mPreMode == MODE_TINY_WINDOW) {
+            if (mCurrentMode == MODE_TINY_WINDOW) return false;
+            NiceUtil.showActionBar(mContext);
+            NiceUtil.scanForActivity(mContext)
+                    .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            
+            ViewGroup contentView = (ViewGroup) NiceUtil.scanForActivity(mContext)
+                    .findViewById(android.R.id.content);
+            contentView.removeView(mContainer);
+            FrameLayout.LayoutParams params = getTinyWindowParams();
+            contentView.addView(mContainer, params);
+    
+            mPreMode = MODE_TINY_WINDOW;
+            mCurrentMode = MODE_TINY_WINDOW;
+            mController.onPlayModeChanged(mCurrentMode);
+            LogUtil.d("MODE_TINY_WINDOW");
             return true;
         }
         return false;
@@ -620,14 +643,7 @@ public class NiceVideoPlayer extends FrameLayout
                 
                 ViewGroup contentView = (ViewGroup) NiceUtil.scanForActivity(mContext)
                         .findViewById(android.R.id.content);
-                // 小窗口的宽度为屏幕宽度的60%，长宽比默认为16:9，右边距、下边距为8dp。
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                        (int) (NiceUtil.getScreenWidth(mContext) * 0.6f),
-                        (int) (NiceUtil.getScreenWidth(mContext) * 0.6f * 9f / 16f));
-                params.gravity = Gravity.BOTTOM | Gravity.END;
-                params.rightMargin = NiceUtil.dp2px(mContext, 8f);
-                params.bottomMargin = NiceUtil.dp2px(mContext, 8f);
-                
+                FrameLayout.LayoutParams params = getTinyWindowParams();
                 contentView.addView(mContainer, params);
                 
                 mCurrentMode = MODE_TINY_WINDOW;
@@ -635,6 +651,19 @@ public class NiceVideoPlayer extends FrameLayout
                 LogUtil.d("MODE_TINY_WINDOW");
             }
         });
+    }
+    
+    /**
+     * 小窗口的宽度为屏幕宽度的60%，长宽比默认为16:9，右边距、下边距为8dp。
+     */
+    private FrameLayout.LayoutParams getTinyWindowParams() {
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                (int) (NiceUtil.getScreenWidth(mContext) * 0.6f),
+                (int) (NiceUtil.getScreenWidth(mContext) * 0.6f * 9f / 16f));
+        params.gravity = Gravity.BOTTOM | Gravity.END;
+        params.rightMargin = NiceUtil.dp2px(mContext, 8f);
+        params.bottomMargin = NiceUtil.dp2px(mContext, 8f);
+        return params;
     }
     
     /**

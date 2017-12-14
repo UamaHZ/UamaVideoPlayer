@@ -11,7 +11,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".example.UamaActivity">
+        <activity
+            android:name=".example.UamaActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="ScrollView小窗口模式播放"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
