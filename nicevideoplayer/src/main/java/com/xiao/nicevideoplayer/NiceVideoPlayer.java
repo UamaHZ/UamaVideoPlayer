@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.Surface;
@@ -612,43 +613,53 @@ public class NiceVideoPlayer extends FrameLayout
      */
     @Override
     public void enterTinyWindow() {
-        if (mCurrentMode == MODE_TINY_WINDOW) return;
-        this.removeView(mContainer);
-
-        ViewGroup contentView = (ViewGroup) NiceUtil.scanForActivity(mContext)
-                .findViewById(android.R.id.content);
-        // 小窗口的宽度为屏幕宽度的60%，长宽比默认为16:9，右边距、下边距为8dp。
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                (int) (NiceUtil.getScreenWidth(mContext) * 0.6f),
-                (int) (NiceUtil.getScreenWidth(mContext) * 0.6f * 9f / 16f));
-        params.gravity = Gravity.BOTTOM | Gravity.END;
-        params.rightMargin = NiceUtil.dp2px(mContext, 8f);
-        params.bottomMargin = NiceUtil.dp2px(mContext, 8f);
-
-        contentView.addView(mContainer, params);
-
-        mCurrentMode = MODE_TINY_WINDOW;
-        mController.onPlayModeChanged(mCurrentMode);
-        LogUtil.d("MODE_TINY_WINDOW");
+        new Handler().post(new Runnable() {
+            public void run() {
+                if (mCurrentMode == MODE_TINY_WINDOW) return;
+                NiceVideoPlayer.this.removeView(mContainer);
+                
+                ViewGroup contentView = (ViewGroup) NiceUtil.scanForActivity(mContext)
+                        .findViewById(android.R.id.content);
+                // 小窗口的宽度为屏幕宽度的60%，长宽比默认为16:9，右边距、下边距为8dp。
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                        (int) (NiceUtil.getScreenWidth(mContext) * 0.6f),
+                        (int) (NiceUtil.getScreenWidth(mContext) * 0.6f * 9f / 16f));
+                params.gravity = Gravity.BOTTOM | Gravity.END;
+                params.rightMargin = NiceUtil.dp2px(mContext, 8f);
+                params.bottomMargin = NiceUtil.dp2px(mContext, 8f);
+                
+                contentView.addView(mContainer, params);
+                
+                mCurrentMode = MODE_TINY_WINDOW;
+                mController.onPlayModeChanged(mCurrentMode);
+                LogUtil.d("MODE_TINY_WINDOW");
+            }
+        });
     }
-
+    
     /**
      * 退出小窗口播放
      */
     @Override
     public boolean exitTinyWindow() {
         if (mCurrentMode == MODE_TINY_WINDOW) {
-            ViewGroup contentView = (ViewGroup) NiceUtil.scanForActivity(mContext)
-                    .findViewById(android.R.id.content);
-            contentView.removeView(mContainer);
-            LayoutParams params = new LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT);
-            this.addView(mContainer, params);
-
-            mCurrentMode = MODE_NORMAL;
-            mController.onPlayModeChanged(mCurrentMode);
-            LogUtil.d("MODE_NORMAL");
+            new Handler().post(new Runnable() {
+                public void run() {
+                    if (mCurrentMode == MODE_TINY_WINDOW) {
+                        ViewGroup contentView = (ViewGroup) NiceUtil.scanForActivity(mContext)
+                                .findViewById(android.R.id.content);
+                        contentView.removeView(mContainer);
+                        LayoutParams params = new LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT);
+                        NiceVideoPlayer.this.addView(mContainer, params);
+                        
+                        mCurrentMode = MODE_NORMAL;
+                        mController.onPlayModeChanged(mCurrentMode);
+                        LogUtil.d("MODE_NORMAL");
+                    }
+                }
+            });
             return true;
         }
         return false;
