@@ -19,7 +19,7 @@
                 android:layout_height="100dp"
                 android:background="#330033"/>
 
-            <com.xiao.nicevideoplayer.NiceVideoPlayer
+            <com.uama.videoplayer.NiceVideoPlayer
                 android:id="@+id/nice_video_player"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"

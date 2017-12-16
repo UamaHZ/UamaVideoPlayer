@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.xiao.nicevieoplayer.example.ChangeClarityActivity">
+    tools:context="com.uama.vieoplayer.example.ChangeClarityActivity">
 
-    <com.xiao.nicevideoplayer.NiceVideoPlayer
+    <com.uama.videoplayer.NiceVideoPlayer
         android:id="@+id/nice_video_player"
         android:layout_width="match_parent"
         android:layout_height="180dp"

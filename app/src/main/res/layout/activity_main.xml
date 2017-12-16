@@ -5,7 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.xiao.nicevieoplayer.example.MainActivity">
+    tools:context="com.uama.vieoplayer.example.MainActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="scrollView"
+        android:text="ScrollView"/>
 
     <Button
         android:layout_width="match_parent"
