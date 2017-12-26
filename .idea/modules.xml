@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NiceVieoPlayer.iml" filepath="$PROJECT_DIR$/NiceVieoPlayer.iml" />
+      <module fileurl="file://D:\WorkPlace2\UamaVideoPlayer\NiceVieoPlayer.iml" filepath="D:\WorkPlace2\UamaVideoPlayer\NiceVieoPlayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UamaVideoPlayer.iml" filepath="$PROJECT_DIR$/UamaVideoPlayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/nicevideoplayer/nicevideoplayer.iml" filepath="$PROJECT_DIR$/nicevideoplayer/nicevideoplayer.iml" />
+      <module fileurl="file://D:\WorkPlace2\UamaVideoPlayer\app\app.iml" filepath="D:\WorkPlace2\UamaVideoPlayer\app\app.iml" />
+      <module fileurl="file://D:\WorkPlace2\UamaVideoPlayer\nicevideoplayer\nicevideoplayer.iml" filepath="D:\WorkPlace2\UamaVideoPlayer\nicevideoplayer\nicevideoplayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/uamavideoplayer/uamavideoplayer.iml" filepath="$PROJECT_DIR$/uamavideoplayer/uamavideoplayer.iml" />
     </modules>
   </component>
 </project>
