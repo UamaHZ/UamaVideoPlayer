@@ -58,9 +58,6 @@ public class TBVideoPlayerController
     private LinearLayout mError;
     private TextView mRetry;
 
-    private LinearLayout mCompleted;
-    private TextView mReplay;
-
     private boolean topBottomVisible;
     private CountDownTimer mDismissTopBottomCountDownTimer;
 
@@ -110,16 +107,12 @@ public class TBVideoPlayerController
         mError = (LinearLayout) findViewById(R.id.error);
         mRetry = (TextView) findViewById(R.id.retry);
 
-        mCompleted = (LinearLayout) findViewById(R.id.completed);
-        mReplay = (TextView) findViewById(R.id.replay);
-
         mCenterStart.setOnClickListener(this);
         mBack.setOnClickListener(this);
         mRestartPause.setOnClickListener(this);
         mFullScreen.setOnClickListener(this);
         mClarity.setOnClickListener(this);
         mRetry.setOnClickListener(this);
-        mReplay.setOnClickListener(this);
         mSeek.setOnSeekBarChangeListener(this);
         this.setOnClickListener(this);
     }
@@ -189,7 +182,6 @@ public class TBVideoPlayerController
                 mLoading.setVisibility(View.VISIBLE);
                 mLoadText.setText("正在准备...");
                 mError.setVisibility(View.GONE);
-                mCompleted.setVisibility(View.GONE);
                 mTop.setVisibility(View.GONE);
                 mBottom.setVisibility(View.GONE);
                 mCenterStart.setVisibility(View.GONE);
@@ -230,7 +222,7 @@ public class TBVideoPlayerController
                 cancelUpdateProgressTimer();
                 setTopBottomVisible(false);
                 mImage.setVisibility(View.VISIBLE);
-                mCompleted.setVisibility(View.VISIBLE);
+                mCenterStart.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -282,7 +274,6 @@ public class TBVideoPlayerController
 
         mLoading.setVisibility(View.GONE);
         mError.setVisibility(View.GONE);
-        mCompleted.setVisibility(View.GONE);
     }
 
     /**
@@ -293,7 +284,11 @@ public class TBVideoPlayerController
     public void onClick(View v) {
         if (v == mCenterStart) {
             if (mNiceVideoPlayer.isIdle()) {
+                mNiceVideoPlayer.continueFromLastPosition(false);
                 mNiceVideoPlayer.start();
+            } else if (mNiceVideoPlayer.isCompleted()) {
+                mNiceVideoPlayer.continueFromLastPosition(false);
+                mNiceVideoPlayer.restart();
             }
         } else if (v == mBack) {
             if (mNiceVideoPlayer.isFullScreen()) {
@@ -318,9 +313,7 @@ public class TBVideoPlayerController
             mClarityDialog.show();     // 显示清晰度对话框
         } else if (v == mRetry) {
             mNiceVideoPlayer.restart();
-        } else if (v == mReplay) {
-            mRetry.performClick();
-        }else if (v == this) {
+        } else if (v == this) {
             if (mNiceVideoPlayer.isPlaying()
                     || mNiceVideoPlayer.isPaused()
                     || mNiceVideoPlayer.isBufferingPlaying()
