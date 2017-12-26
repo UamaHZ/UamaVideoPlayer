@@ -1,4 +1,4 @@
-# NiceVieoPlayer
+# UamaVideoPlayer
 
 [![](https://jitpack.io/v/KingJ0629/UamaVideoPlayer.svg)](https://jitpack.io/#KingJ0629/UamaVideoPlayer) [![Build Status](https://travis-ci.org/KingJ0629/UamaVieoPlayer.svg?branch=master)](https://travis-ci.org/KingJ0629/UamaVieoPlayer) [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16) [![作者](https://img.shields.io/badge/%E4%BD%9C%E8%80%85-KingJ-orange.svg)](https://github.com/KingJ0629)
 ### Features
@@ -59,7 +59,7 @@ public void onBackPressed() {
     super.onBackPressed();
 }
 ```
-详细可参考demo中的`TinyWindowPlayActivity`、`ChangeClarityActivity`、`RecyclerViewActivity`.
+详细可参考demo中的`TinyWindowPlayActivity`、`ChangeClarityActivity`、`RecyclerViewActivity`、`ScrollViewActivity`.
 #### 2.在Fragment中使用
 在Fragment中使用时，该Fragment外层的Activity需要继承自`AppCompatActivity`，并且也要处理返回键按下逻辑：
 ```

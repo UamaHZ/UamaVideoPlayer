@@ -12,7 +12,7 @@ import android.widget.ScrollView;
 import com.bumptech.glide.Glide;
 import com.uama.videoplayer.NiceVideoPlayer;
 import com.uama.videoplayer.NiceVideoPlayerManager;
-import com.uama.videoplayer.TxVideoPlayerController;
+import com.uama.videoplayer.TBVideoPlayerController;
 import com.uama.vieoplayer.R;
 
 /**
@@ -39,11 +39,10 @@ public class ScrollViewActivity extends AppCompatActivity {
 		mNiceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_IJK); // IjkPlayer or MediaPlayer
 		String videoUrl = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
 		mNiceVideoPlayer.setUp(videoUrl, null);
-		TxVideoPlayerController controller = new TxVideoPlayerController(this);
-		controller.setTitle("办公室小野开番外了，居然在办公室开澡堂！老板还点赞？");
+		TBVideoPlayerController controller = new TBVideoPlayerController(this);
 		controller.setLenght(98000);
 		Glide.with(this)
-				.load("http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-30-43.jpg")
+				.load("http://pic.qiantucdn.com/58pic/19/73/22/570f6abca6f01_1024.jpg")
 				.placeholder(R.drawable.img_default)
 				.crossFade()
 				.into(controller.imageView());
@@ -58,11 +57,6 @@ public class ScrollViewActivity extends AppCompatActivity {
 				int[] location = new int[2];
 				mNiceVideoPlayer.getLocationInWindow(location); //获取在当前窗口内的绝对坐标
 
-//				int[] location2 = new int[2];
-//				mNiceVideoPlayer.getLocationOnScreen(location2);//获取在整个屏幕内的绝对坐标
-//
-//				Log.i("msg", "获取在整个屏幕内的绝对坐标" + location2[0] + "####----####" + location2[1]);
-				
 				if (location[1] < 0) {
 					if (!mNiceVideoPlayer.isIdle()) {
 						if (!mNiceVideoPlayer.isTinyWindow()) {
