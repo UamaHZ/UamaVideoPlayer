@@ -1,6 +1,6 @@
 # NiceVieoPlayer
 
-[![](https://jitpack.io/v/xiaoyanger0825/NiceVieoPlayer.svg)](https://jitpack.io/#KingJ0629/UamaVideoPlayer) [![Build Status](https://travis-ci.org/KingJ0629/UamaVieoPlayer.svg?branch=master)](https://travis-ci.org/KingJ0629/UamaVieoPlayer) [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16) [![作者](https://img.shields.io/badge/%E4%BD%9C%E8%80%85-KingJ-orange.svg)](https://github.com/KingJ0629)
+[![](https://jitpack.io/v/KingJ0629/UamaVideoPlayer.svg)](https://jitpack.io/#KingJ0629/UamaVideoPlayer) [![Build Status](https://travis-ci.org/KingJ0629/UamaVieoPlayer.svg?branch=master)](https://travis-ci.org/KingJ0629/UamaVieoPlayer) [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16) [![作者](https://img.shields.io/badge/%E4%BD%9C%E8%80%85-KingJ-orange.svg)](https://github.com/KingJ0629)
 ### Features
 
  * 用IjkPlayer/MediaPlayer + TextureView封装，可切换IjkPlayer、MediaPlayer.
@@ -11,9 +11,7 @@
  * 可自定义控制界面.
 
 ### Usage
-下载niceviewoplayer库，在AndroidStudio中作为Mudule添加依赖。
-
-或者在Gradle中添加依赖：
+在Gradle中添加依赖：
 
 ```
 allprojects {
@@ -24,7 +22,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.xiaoyanger0825:NiceVieoPlayer:v2.2'
+    compile 'com.github.KingJ0629:UamaVideoPlayer:v2.3'
 }
 ```
 **在对应视频界面所在的Activity的Manifest.xml中需要添加如下配置：**
