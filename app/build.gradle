@@ -36,9 +36,9 @@ dependencies {
     })
     compile project(':uamavideoplayer')
     compile rootProject.ext.dependencies.appcompatV7
-    compile rootProject.ext.dependencies.rxpermissions
-    compile rootProject.ext.dependencies.rxjava
+    implementation rootProject.ext.dependencies.rxpermissions
+    implementation rootProject.ext.dependencies.rxjava
     testCompile rootProject.ext.dependencies.junit
-    compile rootProject.ext.dependencies.recyclerview
-    compile rootProject.ext.dependencies.glide
+    implementation rootProject.ext.dependencies.recyclerview
+    implementation rootProject.ext.dependencies.glide
 }
