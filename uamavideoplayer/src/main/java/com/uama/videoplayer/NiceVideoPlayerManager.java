@@ -53,7 +53,7 @@ public class NiceVideoPlayerManager {
     public boolean onBackPressd() {
         if (mVideoPlayer != null) {
             if (mVideoPlayer.isFullScreen()) {
-                return mVideoPlayer.exitFullScreen();
+                return mVideoPlayer.exitFullScreenOrChangeOrientation();
             } else if (mVideoPlayer.isTinyWindow()) {
                 return mVideoPlayer.exitTinyWindow();
             }

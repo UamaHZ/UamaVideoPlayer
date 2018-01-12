@@ -582,7 +582,21 @@ public class NiceVideoPlayer extends FrameLayout
         mController.onPlayModeChanged(mCurrentMode);
         LogUtil.d("MODE_FULL_SCREEN");
     }
-
+    
+    /**
+     * 如果是横屏，改变状态为竖屏
+     */
+    @Override
+    public boolean exitFullScreenOrChangeOrientation() {
+        // 横竖屏状态
+        boolean isProtrait = NiceUtil.isScreenOrientationPortrait(mContext);
+        if (mCurrentMode == MODE_FULL_SCREEN && !isProtrait) {
+            NiceUtil.scanForActivity(mContext).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            return true;
+        }
+        return exitFullScreen();
+    }
+    
     /**
      * 退出全屏，移除mTextureView和mController，并添加到非全屏的容器中。
      * 切换竖屏时需要在manifest的activity标签下添加android:configChanges="orientation|keyboardHidden|screenSize"配置，

@@ -3,6 +3,7 @@ package com.uama.videoplayer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
@@ -152,5 +153,13 @@ public class NiceUtil {
         return context.getSharedPreferences("NICE_VIDEO_PALYER_PLAY_POSITION",
                 Context.MODE_PRIVATE)
                 .getLong(url, 0);
+    }
+    
+    /**
+     * 屏幕状态是否是竖屏状态
+     * @return 竖屏为true
+     */
+    public static boolean isScreenOrientationPortrait(Context mContext) {
+        return scanForActivity(mContext).getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
     }
 }

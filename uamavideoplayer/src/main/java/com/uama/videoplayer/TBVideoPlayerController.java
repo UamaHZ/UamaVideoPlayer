@@ -1,6 +1,7 @@
 package com.uama.videoplayer;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.CountDownTimer;
 import android.support.annotation.DrawableRes;
 import android.view.LayoutInflater;
@@ -238,8 +239,8 @@ public class TBVideoPlayerController
                 break;
             case NiceVideoPlayer.MODE_FULL_SCREEN:
                 mBack.setVisibility(View.VISIBLE);
-                mFullScreen.setVisibility(View.GONE);
-                mFullScreen.setImageResource(R.drawable.ic_player_shrink);
+                mFullScreen.setVisibility(View.VISIBLE);
+//                mFullScreen.setImageResource(R.drawable.ic_player_shrink);
                 if (clarities != null && clarities.size() > 1) {
                     mClarity.setVisibility(View.VISIBLE);
                 }
@@ -306,7 +307,13 @@ public class TBVideoPlayerController
             if (mNiceVideoPlayer.isNormal() || mNiceVideoPlayer.isTinyWindow()) {
                 mNiceVideoPlayer.enterFullScreen();
             } else if (mNiceVideoPlayer.isFullScreen()) {
-                mNiceVideoPlayer.exitFullScreen();
+                // 横竖屏状态
+                boolean isProtrait = NiceUtil.isScreenOrientationPortrait(mContext);
+                if (isProtrait) {
+                    NiceUtil.scanForActivity(mContext).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                } else {
+                    NiceUtil.scanForActivity(mContext).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
             }
         } else if (v == mClarity) {
             setTopBottomVisible(false); // 隐藏top、bottom

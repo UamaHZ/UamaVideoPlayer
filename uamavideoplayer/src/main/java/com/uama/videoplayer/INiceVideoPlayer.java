@@ -149,6 +149,13 @@ public interface INiceVideoPlayer {
     boolean exitFullScreen();
 
     /**
+     * 退出全屏模式或者改变横竖屏状态
+     *
+     * @return true 旋转或退出
+     */
+    boolean exitFullScreenOrChangeOrientation();
+
+    /**
      * 进入小窗口模式
      */
     void enterTinyWindow();
