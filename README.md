@@ -22,7 +22,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.KingJ0629:UamaVideoPlayer:v2.3'
+    compile 'com.github.UamaHZ:UamaVideoPlayer:v2.3.3'
 }
 ```
 **在对应视频界面所在的Activity的Manifest.xml中需要添加如下配置：**
